@@ -1,0 +1,19 @@
+# Copy this file to Parameters to start a fresh configuration
+# Name of the vhost to create
+$vhost = "app.dev"
+
+# VM IP Not yet used
+# $private_network_ip = "192.168.100.100"
+
+# Use NFS?
+$use_nfs = true
+
+# Base box name
+$base_box = "vagrant"
+$base_box_url = "http://files.vagrantup.com/precise64.box"
+
+# SF
+$database_name = "db_name"
+$database_user=  "db_user"
+$database_password = "db_password"
+$nginx_template = "vagrant.conf"

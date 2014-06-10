@@ -1,0 +1,22 @@
+---
+- name: Install nginx
+  apt: pkg=nginx state=latest
+
+- name: Create nginx main configuration
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+- name: Create web nginx configuration
+  template: src={{ nginx_template }} dest=/etc/nginx/sites-available/web.conf
+
+- name: Delete default nginx configuration
+  file: name=/etc/nginx/sites-enabled/default state=absent
+
+- name: Create link for nginx configuration
+  file: src=/etc/nginx/sites-available/web.conf dest=/etc/nginx/sites-enabled/web.conf state=link
+  notify: restart nginx
+#
+# - name: Create web root
+#   action: file path=/var/www/html state=directory
+
+# - name: Create default web index
+#   template: src=index.php dest=/var/www/html/index.php owner=www-data group=www-data

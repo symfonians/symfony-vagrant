@@ -1,0 +1,14 @@
+---
+- name: Install Node.js and npm
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - nodejs
+    - npm
+
+# # NPM install less
+# - name: Install LESS.CSS
+#   shell:  npm install -g less
+
+# # ln -s /usr/bin/nodejs /usr/local/bin/node
+# - name: Create another path for Node.js (for Symfony Mac)
+#   file: src=/usr/bin/nodejs dest=/usr/local/bin/node state=link

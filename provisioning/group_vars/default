@@ -1,0 +1,6 @@
+---
+
+database_name: vagrant_db
+database_user: vagrant_db
+database_password: vagrant_db
+nginx_template: vagrant.conf

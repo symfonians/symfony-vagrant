@@ -1,0 +1,13 @@
+---
+- name: Symfony Vagrant on {{vhost}}
+  hosts: default
+  sudo: yes
+
+  roles:
+    - common
+    - php-fpm
+    - nginx
+    # - postgres
+    - mysql
+    - composer
+    - nodejs
