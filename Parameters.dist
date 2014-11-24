@@ -9,8 +9,8 @@ $vhost = "app.dev"
 $use_nfs = true
 
 # Base box name
-$base_box = "vagrant"
-$base_box_url = "http://files.vagrantup.com/precise64.box"
+$base_box = "ubuntu/trusty64"
+#$base_box_url = "http://files.vagrantup.com/precise64.box"
 
 # SF
 $database_name = "db_name"
