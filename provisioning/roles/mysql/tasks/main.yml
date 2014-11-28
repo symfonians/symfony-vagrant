@@ -14,7 +14,8 @@
       # - mysql
       - python-mysqldb
       - mysql-server
-      - php5-mysql
+      # - php5-mysql
+      - php5-mysqlnd
 
 - name: Create a new database
   mysql_db: name={{database_name}} state=present collation=utf8_general_ci
