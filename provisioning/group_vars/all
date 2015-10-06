@@ -1,4 +1,3 @@
 ---
-server_root:  /var/www/vhosts/symfony/web
-php_fpm_socket: /var/run/php-fpm.sock
+php_fpm_socket: /var/run/php5-fpm.sock
 nginx_template: web.conf

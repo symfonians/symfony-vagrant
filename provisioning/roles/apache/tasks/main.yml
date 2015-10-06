@@ -1,0 +1,46 @@
+---
+- name: Install apache
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2
+    - apache2-mpm-event
+    - libapache2-mod-fastcgi
+
+#- name: Create nginx main configuration
+#  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+- name: Create php5-fpm apache configuration
+  template: src=php5-fpm.conf dest=/etc/apache2/conf-available/php5-fpm.conf
+
+- name: Create link for php5-fpm conf.
+  file: src=/etc/apache2/conf-available/php5-fpm.conf dest=/etc/apache2/conf-enabled/php5-fpm.conf state=link
+
+- name: Disabeling apache modules
+  apache2_module: state=absent name={{ item }}
+  with_items:
+    - mpm_worker
+
+- name: Enable apache modules
+  apache2_module: state=present name={{ item }}
+  with_items:
+    - actions
+    - fastcgi
+    - alias
+    - mpm_event
+
+- name: Create apache web configuration
+  template: src=vagrant.conf dest=/etc/apache2/sites-available/vagrant.conf
+
+- name: Delete default apache configuration
+  file: name=/etc/apache2/sites-enabled/000-default.conf state=absent
+
+- name: Create link for apache web configuration
+  file: src=/etc/apache2/sites-available/vagrant.conf dest=/etc/apache2/sites-enabled/vagrant.conf state=link
+  notify: restart apache
+
+#
+# - name: Create web root
+#   action: file path=/var/www/html state=directory
+
+# - name: Create default web index
+#   template: src=index.php dest=/var/www/html/index.php owner=www-data group=www-data

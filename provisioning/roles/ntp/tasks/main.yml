@@ -1,0 +1,13 @@
+---
+- name: Install ntp package
+  apt:  pkg=ntp state=latest
+
+- name: Set the correct timezone.
+  file:
+    src: "/usr/share/zoneinfo/{{ ntp_timezone }}"
+    dest: /etc/localtime
+    state: link
+    force: yes
+
+- name: be sure ntp is running and enabled
+  service: name=ntp state=running enabled=yes

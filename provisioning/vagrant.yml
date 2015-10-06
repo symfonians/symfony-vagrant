@@ -5,9 +5,11 @@
 
   roles:
     - common
+    - ntp
     - php-fpm
+    # - apache
     - nginx
     # - postgres
     - mysql
     - composer
-    - nodejs
+    # - nodejs

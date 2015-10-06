@@ -1,15 +1,16 @@
 ---
+- name: create apt source.list file
+  template: src=sources.list dest=/etc/apt/sources.list
+
 - name: update the apt cache
   apt: update_cache=yes
   
-- name: Install vim
-  apt: pkg=vim state=latest
-  
-- name: Install cURL
-  apt:  pkg=curl state=latest
-
-- name: Install htop
-  apt:  pkg=htop state=latest
-  
-- name: Install git
-  apt: pkg=git state=latest
+- name: Install system packages
+  apt:  pkg={{ item }} state=latest
+  with_items:
+    - curl
+    - wget
+    - vim
+    - joe
+    - htop
+    - git

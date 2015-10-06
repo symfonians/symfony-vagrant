@@ -12,6 +12,9 @@ $use_nfs = true
 $base_box = "ubuntu/trusty64"
 #$base_box_url = "http://files.vagrantup.com/precise64.box"
 
+# system
+$ntp_timezone = 'Europe/Zurich'
+
 # SF
 $database_name = "db_name"
 $database_user=  "db_user"
