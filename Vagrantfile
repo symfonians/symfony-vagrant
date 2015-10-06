@@ -1,6 +1,19 @@
 parameters = File.expand_path("../Parameters", __FILE__)
 load parameters
 
+$bindmount = <<SCRIPT
+echo Executing bindmount ...
+mkdir -p /var/shared/cache/
+mkdir -p /var/shared/logs/
+chown -Rf vagrant:vagrant /var/shared/cache/
+chown -Rf vagrant:vagrant /var/shared/logs/
+mkdir -p /var/www/vhosts/$1/app/cache/
+mkdir -p /var/www/vhosts/$1/app/logs/
+sudo mount -o bind /var/shared/cache/ /var/www/vhosts/$1/app/cache/
+sudo mount -o bind /var/shared/logs/ /var/www/vhosts/$1/app/logs/
+echo ... DONE!
+SCRIPT
+
 Vagrant.configure("2") do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
@@ -15,6 +28,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |v|
     v.gui = false
+    v.name = $app
 
     host = RbConfig::CONFIG['host_os']
 
@@ -43,7 +57,13 @@ Vagrant.configure("2") do |config|
       s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
   end
 
-  config.vm.provision "shell", path: "bindmount.sh", run: "always"
+  #config.vm.provision "shell", path: "bindmount.sh", run: "always"
+  #config.vm.provision "shell", inline: $bindmount, run: "always"
+
+  config.vm.provision :shell, run: "always" do |shell|
+      shell.inline = $bindmount
+      shell.args = $app
+  end
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioning/vagrant.yml"
