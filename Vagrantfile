@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |v|
     v.gui = false
+    v.name = $app
 
     host = RbConfig::CONFIG['host_os']
 
