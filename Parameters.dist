@@ -1,6 +1,8 @@
 # Copy this file to Parameters to start a fresh configuration
 # Name of the vhost to create
-$vhost = "app.dev"
+$suffix = "pl"
+$app = "APP NAME (e.g. project.client)"
+$vhost = $app + "." + $suffix
 
 # VM IP Not yet used
 # $private_network_ip = "192.168.100.100"
@@ -9,8 +11,7 @@ $vhost = "app.dev"
 $use_nfs = true
 
 # Base box name
-$base_box = "ubuntu/trusty64"
-#$base_box_url = "http://files.vagrantup.com/precise64.box"
+$base_box = "debian/jessie64"
 
 # system
 $ntp_timezone = 'Europe/Zurich'
